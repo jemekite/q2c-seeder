@@ -71,11 +71,11 @@ public:
         {"testnet", no_argument, &fUseTestNet, 1},
         {"wipeban", no_argument, &fWipeBan, 1},
         {"wipeignore", no_argument, &fWipeBan, 1},
-        {"help", no_argument, 0, '?'},
+        {"help", no_argument, 0, 'h'},
         {0, 0, 0, 0}
       };
       int option_index = 0;
-      int c = getopt_long(argc, argv, "h:n:m:t:p:d:o:i:k:w:?", long_options, &option_index);
+      int c = getopt_long(argc, argv, "h:n:m:t:p:d:o:i:k:w:", long_options, &option_index);
       if (c == -1) break;
       switch (c) {
         case 'h': {
@@ -153,10 +153,7 @@ public:
         filter_whitelist.insert(13);
     }
     if (host != NULL && ns == NULL) showHelp = true;
-    if (showHelp) {
-      fprintf(stderr, help, argv[0]);
-      exit(0);
-    }
+    if (showHelp) fprintf(stderr, help, argv[0]);
   }
 };
 
@@ -400,13 +397,13 @@ extern "C" void* ThreadStats(void*) {
   return nullptr;
 }
 
-static const string mainnet_seeds[] = {"dnsseed.qubitcoinxplorer.cc", "seed.qubitcoin.cc", "q2c1.ignorelist.com", "q2c2.ignorelist.com",""};
-static const string testnet_seeds[] = {"testnet-seed.qubitcoin.cc", ""};
+static const string mainnet_seeds[] = {"seed1.qubitcoindnsseed.cc", "seed2.qubitcoindnsseed.cc", "seed3.qubitcoindnsseed.cc", "seed4.qubitcoindnsseed.cc",""};
+static const string testnet_seeds[] = {"testnet-seed.qubitcoindnsseed.cc", ""};
 static const string *seeds = mainnet_seeds;
 
 extern "C" void* ThreadSeeder(void*) {
   if (!fTestNet){
-    db.Add(CService("kjy2eqzk4zwi5zd3.onion", 7788), true);
+    db.Add(CService("5.189.180.244", GetDefaultPort()), true);
   }
   do {
     for (int i=0; seeds[i] != ""; i++) {
